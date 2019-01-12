@@ -1,0 +1,17 @@
+from comtypes.client import CreateObject
+from comtypes import *
+from comtypes.gen import SpeechLib
+from playsound import playsound
+engine = CreateObject("SAPI.SpVoice")
+stream = CreateObject("SAPI.SpFileStream")
+infile = "hello.txt"
+outfile = "audio.mp3"
+stream.Open(outfile, SpeechLib.SSFMCreateForWrite)
+engine.AudioOutputStream = stream
+f = open(infile, 'r')
+theText = f.read()
+f.close()
+engine.speak(theText)
+stream.Close()
+print("Audio File is Created")
+
